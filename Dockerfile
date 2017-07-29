@@ -1,16 +1,23 @@
-FROM nginx:alpine-perl
+FROM linuxserver/letsencrypt
 EXPOSE 80
 EXPOSE 443
-RUN apk --update --no-cache add nodejs git bash && npm install -g bower
+RUN apk --update --no-cache add gettext nodejs git bash nodejs-npm&& npm install npm@latest -g && npm install -g bower
 
 ENV BOWER_DIRECTORY=/run/bower
-RUN mkdir $BOWER_DIRECTORY
+COPY ./bower/ $BOWER_DIRECTORY/
 WORKDIR $BOWER_DIRECTORY
-COPY ./bower.json $BOWER_DIRECTORY/bower.json
-COPY ./bower_bash.sh $BOWER_DIRECTORY/bower_bash.sh
 RUN /bin/bash bower_bash.sh
 
-COPY ./nginx.conf /etc/nginx/nginx-template.conf
-COPY ./cors_support /etc/nginx/cors_support
-COPY ./test.html $BOWER_DIRECTORY/test.html
-CMD ["/bin/bash", "-c", "envsubst < /etc/nginx/nginx-template.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+COPY ./config/ /config/
+
+ENV PUID=1001
+ENV PGID=1001
+ENV URL=murphytech.net
+ENV SUBDOMAINS=bower
+ENV ONLY_SUBDOMAINS=true
+ENV TZ=America/New_York
+ENV EMAIL=air.jmurph@gmail.com
+
+COPY ./50-config /etc/cont-init.d/50-config
+COPY ./20-config /etc/cont-init.d/20-config
+RUN chown -R root /etc/cont-init.d && chmod +x /etc/cont-init.d/*
