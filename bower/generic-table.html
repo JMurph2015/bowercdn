@@ -1,5 +1,6 @@
 <link rel="import" href="polymer/polymer.html">
 <link rel="import" href="vaadin-grid/all-imports.html">
+<link rel="import" href="vaadin-grid/vaadin-grid-sorter.html"
 <link rel="import" href="iron-ajax/iron-ajax.html">
 <link rel="import" href="iron-flex-layout/iron-flex-layout-classes.html">
 <dom-module id="generic-table">
@@ -92,7 +93,9 @@
         <vaadin-grid aria-label="Dynamic Columns Example" id="grid" class="material" items={{objects}}>
         <template is="dom-repeat" items="{{_getColumns(objects)}}" as="column">
             <vaadin-grid-column>
-            <template class="header">[[column]]</template>
+            <template class="header">[[column]]
+                <vaadin-grid-sorter path="[[column]]">[[column]]</vaadin-grid-sorter>
+            </template>
             <template>[[get(column,item)]]</template>
             </vaadin-grid-column>
         </template>
