@@ -93,7 +93,7 @@
         <vaadin-grid aria-label="Dynamic Columns Example" id="grid" class="material" items={{objects}} multi-sort="[[multiSort]]">
         <template is="dom-repeat" items="{{_getColumns(objects)}}" as="column">
             <vaadin-grid-column>
-            <template class="header">[[column]]
+            <template class="header">
                 <vaadin-grid-sorter path="[[column]]">[[column]]</vaadin-grid-sorter>
             </template>
             <template>[[get(column,item)]]</template>
