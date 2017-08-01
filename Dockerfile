@@ -21,3 +21,4 @@ ENV EMAIL=air.jmurph@gmail.com
 COPY ./50-config /etc/cont-init.d/50-config
 COPY ./20-config /etc/cont-init.d/20-config
 RUN chown -R root /etc/cont-init.d && chmod +x /etc/cont-init.d/*
+COPY ./custom-components/ $BOWER_DIRECTORY/

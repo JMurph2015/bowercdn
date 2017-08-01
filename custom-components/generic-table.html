@@ -2,7 +2,7 @@
 <link rel="import" href="vaadin-grid/all-imports.html">
 <link rel="import" href="vaadin-grid/vaadin-grid-sorter.html">
 <link rel="import" href="iron-ajax/iron-ajax.html">
-<link rel="import" href="paper-checkbox/paper-checkbox.html">
+<link rel="import" href="paper-elements/paper-elements.html">
 <link rel="import" href="iron-flex-layout/iron-flex-layout-classes.html">
 <dom-module id="generic-table">
     <template>
@@ -111,7 +111,7 @@
             objects:Array
         },
         _getColumns: function (objects) {
-            if (objects.length > 0) {
+            if (objects != null) {
                 return Object.keys(objects[0]);
             } else {
                 return [];
